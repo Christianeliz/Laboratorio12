@@ -1,3 +1,0 @@
-como estas?|Estoy muy bien, gracias por preguntar.
-que es un algoritmo?|Un algoritmo es una secuencia de pasos para resolver un problema.
-quien invento C++?|Bjarne Stroustrup creo el lenguaje C++.
