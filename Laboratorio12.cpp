@@ -1,88 +1,39 @@
-#include <iostream>  
-#include <fstream>  
-#include <string>  
-#include <map>  
-#include <vector>  
-#include <sstream>  
-#include <algorithm>  
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
 
 using namespace std;
 
-// Cargar la base de conocimiento desde un archivo  
-map<string, string> cargarBaseDeConocimiento(const string& archivo) {
-    map<string, string> baseDeConocimiento;
-    ifstream file(archivo);
-    string linea;
-
-    while (getline(file, linea)) {
-        size_t separador = linea.find('|');
-        if (separador != string::npos) {
-            string pregunta = linea.substr(0, separador);
-            string respuesta = linea.substr(separador + 1);
-            baseDeConocimiento[pregunta] = respuesta;
+// Función para buscar coincidencias de patrón en una lista
+vector<string> buscarCoincidencias(const vector<string>& lista, const string& patron) {
+    vector<string> resultados;
+    for (const string& item : lista) {
+        if (item.find(patron) != string::npos) {
+            resultados.push_back(item);
         }
     }
-
-    return baseDeConocimiento;
-}
-
-// Búsqueda exacta  
-string busquedaExacta(const map<string, string>& baseDeConocimiento, const string& pregunta) {
-    auto it = baseDeConocimiento.find(pregunta);
-    if (it != baseDeConocimiento.end()) {
-        return it->second;
-    }
-    return "";
-}
-
-// Búsqueda por palabras clave  
-string busquedaPorPalabrasClave(const map<string, string>& baseDeConocimiento, const string& pregunta) {
-    vector<string> palabrasPregunta;
-    istringstream stream(pregunta);
-    string palabra;
-
-    while (stream >> palabra) {
-        palabrasPregunta.push_back(palabra);
-    }
-
-    for (const auto& par : baseDeConocimiento) {
-        for (const auto& palabra : palabrasPregunta) {
-            if (par.first.find(palabra) != string::npos) {
-                return par.second;
-            }
-        }
-    }
-
-    return "";
+    return resultados;
 }
 
 int main() {
-    string archivo = "conocimiento.txt";
-    map<string, string> baseDeConocimiento = cargarBaseDeConocimiento(archivo);
+    vector<string> nombres = {
+        "Alicia", "Roberto", "Alfonso", "Claudia", "Beto", "Albert", "Roberta", "Carla"
+    };
 
-    cout << "Chatbot iniciado. Escribe tu pregunta (escribe 'salir' para terminar):" << endl;
-    string pregunta;
+    cout << "Ingrese el patron a buscar: ";
+    string patron;
+    getline(cin, patron);
 
-    while (true) {
-        cout << "> ";
-        getline(cin, pregunta);
+    vector<string> encontrados = buscarCoincidencias(nombres, patron);
 
-        if (pregunta == "salir") {
-            break;
-        }
+    cout << "\nResultados encontrados:\n";
+    for (const string& nombre : encontrados) {
+        cout << "- " << nombre << endl;
+    }
 
-        string respuesta = busquedaExacta(baseDeConocimiento, pregunta);
-
-        if (respuesta.empty()) {
-            respuesta = busquedaPorPalabrasClave(baseDeConocimiento, pregunta);
-        }
-
-        if (respuesta.empty()) {
-            cout << "Lo siento, no tengo una respuesta para esa pregunta." << endl;
-        }
-        else {
-            cout << respuesta << endl;
-        }
+    if (encontrados.empty()) {
+        cout << "No se encontraron coincidencias." << endl;
     }
 
     return 0;
