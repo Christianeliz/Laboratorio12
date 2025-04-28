@@ -1,0 +1,15 @@
+Informe de Uso de Inteligencia Artificial - Parte B
+
+1. ¿Qué preguntas hiciste a la IA?
+- "¿Puedes generar un ejemplo en C++ de una función para buscar coincidencias de un patrón en una lista de strings?"
+- "¿Cómo optimizarías una búsqueda sencilla de substring en C++?"
+
+2. ¿Qué fragmentos de código o ideas generaste con ayuda de la IA?
+- La función `buscarCoincidencias`.
+- El uso de `std::vector`, `std::string::find` para detectar si un string contiene el patrón.
+- Estructura optimizada para recorrer solo una vez el vector.
+
+3. ¿Qué aprendiste al usarla?
+- Recordé que `string::find` devuelve `npos` si no encuentra el patrón, útil para filtrar coincidencias fácilmente.
+- Aprendí que organizar el flujo de entrada/salida de usuario puede hacer el programa más intuitivo.
+- Confirmé que pequeñas optimizaciones (no copiar strings innecesariamente) son importantes para programas más grandes.
